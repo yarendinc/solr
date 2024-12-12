@@ -26,4 +26,4 @@ jobs:
         sonar-login: ${{ secrets.SONAR_TOKEN }}  # Daha önce eklediğiniz SonarQube Token
 
     - name: Run SonarQube analysis
-      run: sonar-scanner  # SonarScanner komutunu çalıştırarak analizi başlatır
+      run: sonar-scanner -Dsonar.projectKey=apachesolrnew -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} -Dsonar.language=java -Dsonar.sources=src
