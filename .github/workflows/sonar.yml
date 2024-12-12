@@ -1,0 +1,29 @@
+name: SonarQube Analysis
+
+on:
+  push:
+    branches:
+      - main  # Bu satır, sadece "main" dalına yapılan push'larda tetiklenir.
+
+jobs:
+  build:
+    runs-on: windows-latest  # Burada Ubuntu yerine Windows kullanıyoruz
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # Kodunuzu alır
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '21'  # Java sürümünü buraya yazabilirsiniz, projenize bağlı olarak değişir.
+
+    - name: SonarQube Scan
+      uses: sonarsource/sonarcloud-github-action@v1
+      with:
+        sonar-project-key: "apachesolrnew"  # Buraya SonarQube'da oluşturduğunuz proje anahtarını yazın
+        sonar-host-url: ${{ secrets.SONAR_HOST_URL }}  # Daha önce eklediğiniz SonarQube URL
+        sonar-login: ${{ secrets.SONAR_TOKEN }}  # Daha önce eklediğiniz SonarQube Token
+
+    - name: Run SonarQube analysis
+      run: sonar-scanner  # SonarScanner komutunu çalıştırarak analizi başlatır
