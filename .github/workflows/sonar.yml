@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest  # Burada Ubuntu yerine Windows kullanıyoruz
+    runs-on: windows-latest  # Burada Windows kullanıyoruz
 
     steps:
     - name: Checkout code
@@ -16,7 +16,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        java-version: '21'  # Java sürümünü buraya yazabilirsiniz, projenize bağlı olarak değişir.
+        java-version: '21'  # Java sürümünü 21 olarak ayarlıyoruz
 
     - name: SonarQube Scan
       uses: sonarsource/sonarcloud-github-action@v1
@@ -26,4 +26,4 @@ jobs:
         sonar-login: ${{ secrets.SONAR_TOKEN }}  # Daha önce eklediğiniz SonarQube Token
 
     - name: Run SonarQube analysis
-      run: sonar-scanner -Dsonar.projectKey=apachesolrnew -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} -Dsonar.language=java -Dsonar.sources=src
+      run: sonar-scanner  # SonarScanner komutunu çalıştırarak analizi başlatır
